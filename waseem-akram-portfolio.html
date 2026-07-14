@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waseem Akram — Senior Android Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1016;
+    --bg-elevated:#14151F;
+    --surface:#1B1D2B;
+    --surface-2:#22243A;
+    --accent:#8B5CF6;
+    --accent-bright:#A78BFA;
+    --accent-2:#F88909;
+    --text:#EDEBF5;
+    --text-muted:#9A96AF;
+    --text-faint:#605C77;
+    --border:rgba(255,255,255,0.08);
+    --border-bright:rgba(139,92,246,0.35);
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+  }
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  img{max-width:100%; display:block;}
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 32px;
+  }
+  section{
+    padding:120px 0;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-bright);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:24px; height:1px;
+    background:var(--accent);
+  }
+
+  /* ---------- Background texture ---------- */
+  .grid-glow{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background-image:
+      radial-gradient(circle at 15% 8%, rgba(139,92,246,0.16), transparent 42%),
+      radial-gradient(circle at 88% 22%, rgba(248,137,9,0.08), transparent 38%),
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:auto, auto, 64px 64px, 64px 64px;
+    opacity:1;
+    mask-image:linear-gradient(to bottom, black, black 30%, transparent 92%);
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    backdrop-filter:blur(14px);
+    background:rgba(15,16,22,0.72);
+    border-bottom:1px solid var(--border);
+  }
+  nav{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .logo-mark{
+    width:34px; height:34px;
+    border-radius:9px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:#0F1016;
+    font-weight:700;
+  }
+  .nav-links{
+    display:flex;
+    gap:36px;
+    font-size:14.5px;
+    color:var(--text-muted);
+  }
+  .nav-links a{ transition:color .2s; position:relative; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-cta{
+    font-size:14px;
+    padding:10px 20px;
+    border-radius:8px;
+    border:1px solid var(--border-bright);
+    background:rgba(139,92,246,0.08);
+    transition:background .2s, border-color .2s;
+  }
+  .nav-cta:hover{ background:rgba(139,92,246,0.18); }
+  .burger{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none; border:none; cursor:pointer;
+  }
+  .burger span{ width:22px; height:2px; background:var(--text); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:190px 0 120px;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:56px;
+    line-height:1.06;
+    margin-bottom:24px;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(100deg, var(--accent-bright), var(--accent-2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .hero p.lead{
+    font-size:17.5px;
+    color:var(--text-muted);
+    max-width:520px;
+    margin-bottom:36px;
+  }
+  .hero-ctas{ display:flex; gap:14px; margin-bottom:52px; flex-wrap:wrap;}
+  .btn{
+    font-size:14.5px;
+    font-weight:500;
+    padding:14px 26px;
+    border-radius:9px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    transition:transform .18s, box-shadow .18s, background .18s;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#fff;
+    box-shadow:0 0 0 0 rgba(139,92,246,0.5);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(139,92,246,0.55); }
+  .btn-ghost{
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+  .btn-ghost:hover{ border-color:var(--border-bright); background:var(--surface); }
+
+  .hero-stats{
+    display:flex;
+    gap:44px;
+  }
+  .stat-num{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:28px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .stat-label{
+    font-size:12.5px;
+    color:var(--text-faint);
+    font-family:'JetBrains Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+
+  /* ---------- Phone showcase (signature element) ---------- */
+  .phone-stage{
+    position:relative;
+    height:520px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .phone{
+    position:absolute;
+    width:230px;
+    height:470px;
+    border-radius:34px;
+    background:var(--bg-elevated);
+    border:6px solid #2A2C40;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.03);
+    overflow:hidden;
+    transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease;
+  }
+  .phone::before{
+    content:"";
+    position:absolute;
+    top:0; left:50%;
+    transform:translateX(-50%);
+    width:70px; height:18px;
+    background:#2A2C40;
+    border-radius:0 0 10px 10px;
+    z-index:5;
+  }
+  .phone .screen{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+  }
+  .phone.pos-0{ transform:translateX(0) rotate(0deg) scale(1); z-index:3; opacity:1; }
+  .phone.pos-1{ transform:translateX(-128px) translateY(26px) rotate(-9deg) scale(.86); z-index:2; opacity:.55; }
+  .phone.pos-2{ transform:translateX(128px) translateY(26px) rotate(9deg) scale(.86); z-index:2; opacity:.55; }
+  .phone.pos-hide{ transform:translateY(40px) scale(.8); opacity:0; z-index:1; }
+
+  /* mini screen UIs drawn in CSS */
+  .screen-topbar{
+    height:36px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:9px; color:var(--text-faint);
+  }
+  .screen-body{ flex:1; padding:10px 12px; display:flex; flex-direction:column; gap:8px; }
+
+  .s-video .screen-body{ background:#0A0A10; justify-content:center; align-items:center; position:relative;}
+  .s-video .fake-video{ width:100%; height:120px; background:linear-gradient(120deg,#1a1a2e,#25143d); border-radius:8px; position:relative; }
+  .s-video .play-btn{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:34px; height:34px; border-radius:50%; background:rgba(139,92,246,0.85); display:flex; align-items:center; justify-content:center;}
+  .s-video .play-btn::after{ content:""; border-left:9px solid #fff; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:3px;}
+  .s-video .scrub{ width:100%; height:3px; background:#2a2a3d; border-radius:2px; margin-top:14px; position:relative;}
+  .s-video .scrub::after{ content:""; position:absolute; left:0; top:0; height:100%; width:38%; background:var(--accent-bright); border-radius:2px;}
+  .s-video .ctrl-row{ display:flex; gap:10px; margin-top:14px; }
+  .s-video .ctrl-dot{ width:20px; height:20px; border-radius:50%; background:var(--surface-2); }
+
+  .s-pdf .screen-body{ background:#F4F2F8; }
+  .s-pdf .doc-page{ background:#fff; height:76px; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12); padding:8px; display:flex; flex-direction:column; gap:4px; }
+  .s-pdf .doc-line{ height:4px; background:#E3DEEF; border-radius:2px; }
+  .s-pdf .doc-line.short{ width:60%; }
+  .s-pdf .scan-frame{ margin-top:8px; height:60px; border:2px dashed var(--accent); border-radius:8px; display:flex; align-items:center; justify-content:center; color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:8px;}
+
+  .s-qr .screen-body{ background:#0A0A10; align-items:center; justify-content:center; }
+  .s-qr .qr-frame{ width:120px; height:120px; border:2px solid var(--accent-bright); border-radius:14px; position:relative; }
+  .s-qr .qr-frame::before, .s-qr .qr-frame::after{ content:""; position:absolute; width:20px; height:20px; border-color:var(--accent-2); }
+  .s-qr .qr-frame::before{ top:-2px; left:-2px; border-top:3px solid var(--accent-2); border-left:3px solid var(--accent-2); border-radius:8px 0 0 0;}
+  .s-qr .qr-frame::after{ bottom:-2px; right:-2px; border-bottom:3px solid var(--accent-2); border-right:3px solid var(--accent-2); border-radius:0 0 8px 0;}
+  .s-qr .scan-line{ position:absolute; top:20%; left:6%; width:88%; height:2px; background:var(--accent-2); box-shadow:0 0 8px var(--accent-2); }
+
+  .status-dot{ width:6px; height:6px; border-radius:50%; background:#4ADE80; display:inline-block; margin-right:5px;}
+
+  /* ---------- section heads ---------- */
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:36px; }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:start;
+  }
+  .about-bio p{ color:var(--text-muted); margin-bottom:18px; font-size:15.5px; }
+  .about-bio .highlight{ color:var(--text); font-weight:500; }
+  .bio-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
+  .bio-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    padding:6px 12px;
+    border-radius:100px;
+    border:1px solid var(--border);
+    color:var(--text-muted);
+  }
+
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px;
+    width:1px; background:linear-gradient(var(--accent), transparent);
+  }
+  .t-item{ position:relative; padding-bottom:36px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-item::before{
+    content:""; position:absolute; left:-28px; top:4px;
+    width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent-bright);
+  }
+  .t-item.current::before{ background:var(--accent-bright); box-shadow:0 0 0 4px rgba(139,92,246,0.18); }
+  .t-role{ font-size:16px; font-weight:600; font-family:'Space Grotesk', sans-serif; }
+  .t-company{ color:var(--accent-bright); font-size:14px; }
+  .t-date{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint); margin:4px 0 8px; }
+  .t-desc{ color:var(--text-muted); font-size:14px; }
+
+  /* ---------- Projects ---------- */
+  .project-scroll{
+    display:flex;
+    gap:24px;
+    overflow-x:auto;
+    padding:8px 4px 24px;
+    scroll-snap-type:x mandatory;
+  }
+  .project-scroll::-webkit-scrollbar{ height:6px; }
+  .project-scroll::-webkit-scrollbar-thumb{ background:var(--surface-2); border-radius:10px; }
+  .project-card{
+    scroll-snap-align:start;
+    flex:0 0 300px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    transition:border-color .2s, transform .2s, background .2s;
+    display:flex;
+    flex-direction:column;
+    cursor:pointer;
+  }
+  .project-card:hover{ border-color:var(--border-bright); transform:translateY(-4px); background:var(--surface-2); }
+  .p-frame{
+    width:100%; height:190px;
+    border-radius:10px;
+    background:var(--bg-elevated);
+    margin-bottom:18px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--border);
+  }
+  .p-icon{
+    width:52px; height:52px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700; font-size:20px; color:#fff;
+  }
+  .p-tags{ display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 14px; }
+  .p-tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--accent-bright); background:rgba(139,92,246,0.1); padding:4px 8px; border-radius:5px; }
+  .p-company{ font-size:12px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; margin-bottom:4px; }
+  .p-title{ font-size:17px; margin-bottom:8px; }
+  .p-desc{ font-size:13.5px; color:var(--text-muted); margin-bottom:16px; min-height:56px; }
+  .p-link{ font-size:13px; color:var(--accent-bright); display:inline-flex; align-items:center; gap:6px; }
+  .p-link:hover{ text-decoration:underline; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+  .skill-cat{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:26px;
+  }
+  .skill-cat h3{ font-size:16px; margin-bottom:16px; color:var(--accent-bright); }
+  .skill-pills{ display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-pill{
+    font-size:13px;
+    padding:7px 14px;
+    border-radius:8px;
+    background:var(--surface-2);
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+
+  /* ---------- Testimonials ---------- */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+  }
+  .testi-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+  }
+  .quote-mark{ font-family:'Space Grotesk', sans-serif; font-size:40px; color:var(--accent); opacity:.5; line-height:1; margin-bottom:8px; }
+  .testi-text{ color:var(--text-muted); font-size:14.5px; margin-bottom:22px; flex:1; }
+  .testi-person{ display:flex; align-items:center; gap:12px; }
+  .testi-avatar{
+    width:38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:13px; color:#0F1016;
+    background:linear-gradient(135deg, var(--accent-bright), var(--accent-2));
+    flex-shrink:0;
+  }
+  .testi-name{ font-size:14px; font-weight:600; }
+  .testi-role{ font-size:12.5px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- Contact ---------- */
+  .contact-side{ display:flex; flex-direction:column; gap:28px; }
+  .contact-side-solo{
+    max-width:420px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:32px;
+  }
+  .contact-item{ display:flex; gap:16px; align-items:flex-start; border-radius:10px; padding:6px; margin:-6px; transition:background .2s; }
+  a.contact-item:hover{ background:var(--surface-2); }
+  a.contact-item:hover .contact-value{ color:var(--accent-bright); }
+  .contact-ico{
+    width:40px; height:40px; border-radius:10px;
+    background:var(--surface); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    color:var(--accent-bright);
+    font-family:'JetBrains Mono', monospace;
+    font-size:15px;
+  }
+  .contact-label{ font-size:12.5px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; margin-bottom:2px; }
+  .contact-value{ font-size:14.5px; }
+
+  footer{
+    border-top:1px solid var(--border);
+    padding:36px 0;
+    text-align:center;
+    color:var(--text-faint);
+    font-size:13px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .hero{ grid-template-columns:1fr; padding-top:150px; }
+    .hero h1{ font-size:42px; }
+    .about-grid, .contact-grid{ grid-template-columns:1fr; gap:44px; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .phone-stage{ height:420px; }
+    .nav-links{ display:none; }
+    .burger{ display:flex; }
+    section{ padding:80px 0; }
+  }
+  @media (max-width: 900px){
+    .nav-links.open{
+      display:flex;
+      flex-direction:column;
+      position:absolute;
+      top:64px; left:0; right:0;
+      background:var(--bg-elevated);
+      padding:24px 32px;
+      gap:20px;
+      border-bottom:1px solid var(--border);
+    }
+  }
+  @media (max-width: 560px){
+    .wrap{ padding:0 20px; }
+    .hero h1{ font-size:34px; }
+    .hero-stats{ gap:26px; flex-wrap:wrap; }
+    .phone{ width:190px; height:390px; }
+    .phone.pos-1{ transform:translateX(-96px) translateY(26px) rotate(-9deg) scale(.8); }
+    .phone.pos-2{ transform:translateX(96px) translateY(26px) rotate(9deg) scale(.8); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-glow"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="logo"><div class="logo-mark">WA</div> Waseem Akram</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero wrap" id="hero">
+  <div>
+    <div class="eyebrow">Senior Android Developer · Kotlin / Compose</div>
+    <h1>Apps that play smoother, scan sharper, and <span class="accent">ship on time.</span></h1>
+    <p class="lead">I build production Android apps end to end — from architecture to Play Store — specializing in media playback, document scanning, and clean MVVM foundations that scale.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">3+</div><div class="stat-label">Years Experience</div></div>
+      <div><div class="stat-num">10+</div><div class="stat-label">Apps Shipped</div></div>
+      <div><div class="stat-num">3</div><div class="stat-label">Companies</div></div>
+    </div>
+  </div>
+
+  <div class="phone-stage">
+    <div class="phone pos-1 s-qr" data-idx="1">
+      <div class="screen">
+        <div class="screen-topbar"><span><span class="status-dot"></span>GoQR Scanner</span><span>9:41</span></div>
+        <div class="screen-body"><div class="qr-frame"><div class="scan-line"></div></div></div>
+      </div>
+    </div>
+    <div class="phone pos-0 s-video" data-idx="0">
+      <div class="screen">
+        <div class="screen-topbar"><span><span class="status-dot"></span>MAX Player</span><span>9:41</span></div>
+        <div class="screen-body">
+          <div class="fake-video"><div class="play-btn"></div></div>
+          <div class="scrub"></div>
+          <div class="ctrl-row"><div class="ctrl-dot"></div><div class="ctrl-dot"></div><div class="ctrl-dot"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone pos-2 s-pdf" data-idx="2">
+      <div class="screen">
+        <div class="screen-topbar" style="color:#a89bcf;"><span>PDF Scanner</span><span>9:41</span></div>
+        <div class="screen-body">
+          <div class="doc-page"><div class="doc-line"></div><div class="doc-line short"></div><div class="doc-line"></div></div>
+          <div class="scan-frame">DOCUMENT DETECTED</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow">About Me</div>
+        <h2 style="font-size:32px; margin-bottom:24px;">Three years deep in Android, one app at a time.</h2>
+        <div class="about-bio">
+          <p>I'm a <span class="highlight">Senior Android Developer</span> based in Faisalabad, Pakistan, currently leading development at <span class="highlight">Ainsoft Tech</span>. My work centers on <span class="highlight">media-heavy apps</span> — video players built on FFmpeg and MPV, video editors on Media3/ExoPlayer, and document scanners powered by ML Kit, OpenCV, and iText.</p>
+          <p>I manage the full app lifecycle: architecture decisions, modular MVVM/Clean Architecture setups with Hilt and Coroutines, monetization through AdMob and in-app purchases, and the final push to the Play Store. I care about apps that feel fast and stay maintainable long after launch.</p>
+        </div>
+        <div class="bio-tags">
+          <span class="bio-tag">Kotlin</span>
+          <span class="bio-tag">Jetpack Compose</span>
+          <span class="bio-tag">MVVM</span>
+          <span class="bio-tag">Media3 / ExoPlayer</span>
+          <span class="bio-tag">FFmpeg / MPV</span>
+          <span class="bio-tag">Hilt</span>
+          <span class="bio-tag">Coroutines</span>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item current">
+          <div class="t-role">Senior Android Developer</div>
+          <div class="t-company">Ainsoft Tech</div>
+          <div class="t-date">March 2024 — Present</div>
+          <div class="t-desc">Leading PDF Scanner, MAX Video Player, and ViCut Editor. Built custom camera/scanning modules with ML Kit and OpenCV; integrated Media3, AdMob, and modular architectures.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role">Android Developer</div>
+          <div class="t-company">Terafort</div>
+          <div class="t-date">Nov 2022 — March 2024</div>
+          <div class="t-desc">Modernized legacy projects onto Gradle, shipped QR scanning features, and contributed to a Nature Photo Frames app with strong UX feedback.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-role">Android Developer (Junior)</div>
+          <div class="t-company">Hash Technologies</div>
+          <div class="t-date">Aug 2022 — Nov 2022</div>
+          <div class="t-desc">Started hands-on with Kotlin fundamentals and app structure, collaborating closely with a senior development team.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Selected Work</div>
+      <h2>Featured Projects</h2>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="project-scroll">
+
+      <a class="project-card" href="https://play.google.com/store/apps/details?id=pdfscanner.camscanner.documentscanner.scannerapp&hl=en_US" target="_blank" rel="noopener">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#8B5CF6,#5B3FD1);">PDF</div></div>
+        <div class="p-company">Ainsoft Tech</div>
+        <div class="p-title">PDF Scanner: Scan to PDF & OCR</div>
+        <div class="p-desc">Document scanner with edge detection, cropping, and OCR text extraction, backed by iText for reliable PDF creation and merging.</div>
+        <div class="p-tags"><span class="p-tag">ML Kit</span><span class="p-tag">OpenCV</span><span class="p-tag">iText</span></div>
+        <span class="p-link">View on Play Store →</span>
+      </a>
+
+      <a class="project-card" href="https://play.google.com/store/apps/details?id=videoplayer.movies.videoeditor.hd&hl=en_US" target="_blank" rel="noopener">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#F88909,#D96A00);">HD</div></div>
+        <div class="p-company">Ainsoft Tech</div>
+        <div class="p-title">HD Video Player — All Format</div>
+        <div class="p-desc">High-performance player on FFmpeg and MPV native libraries, with gesture controls, lock-screen playback, and a private folder for locked media.</div>
+        <div class="p-tags"><span class="p-tag">FFmpeg</span><span class="p-tag">MPV</span><span class="p-tag">Media3</span></div>
+        <span class="p-link">View on Play Store →</span>
+      </a>
+
+      <a class="project-card" href="https://play.google.com/store/apps/details?id=com.xilli.qrscanner.app" target="_blank" rel="noopener">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#4ADE80,#16A34A);">QR</div></div>
+        <div class="p-company">Terafort</div>
+        <div class="p-title">GoQR Code Scanner</div>
+        <div class="p-desc">Clean, scalable QR scanner built with MVVM architecture and Jetpack Navigation for smooth, intuitive screen transitions.</div>
+        <div class="p-tags"><span class="p-tag">Kotlin</span><span class="p-tag">MVVM</span><span class="p-tag">Navigation</span></div>
+        <span class="p-link">View on Play Store →</span>
+      </a>
+
+      <a class="project-card" href="mailto:wa032220@gmail.com?subject=ViCut%20Video%20Editor%20-%20Demo%20Request">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#8B5CF6,#F88909);">VC</div></div>
+        <div class="p-company">Ainsoft Tech</div>
+        <div class="p-title">ViCut Video Editor</div>
+        <div class="p-desc">Video editing app built on Media3 and ExoPlayer frameworks, delivering advanced trimming, playback, and export functionality.</div>
+        <div class="p-tags"><span class="p-tag">Media3</span><span class="p-tag">ExoPlayer</span><span class="p-tag">Compose</span></div>
+        <span class="p-link">Ask for a demo →</span>
+      </a>
+
+      <a class="project-card" href="https://play.google.com/store/apps/details?id=com.xenstudio.waterfallphoto.collagesmaker" target="_blank" rel="noopener">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#38BDF8,#0284C7);">WF</div></div>
+        <div class="p-company">Terafort</div>
+        <div class="p-title">Waterfall Multi Photo Frames</div>
+        <div class="p-desc">Photo collage app translating UI/UX concepts into interactive features, using Coroutines and Dagger 2 for a modular, responsive codebase.</div>
+        <div class="p-tags"><span class="p-tag">Coroutines</span><span class="p-tag">Dagger 2</span></div>
+        <span class="p-link">View on Play Store →</span>
+      </a>
+
+      <a class="project-card" href="https://play.google.com/store/apps/details?id=com.xilli.hd.android.wallpapersmaker" target="_blank" rel="noopener">
+        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">4K</div></div>
+        <div class="p-company">Terafort</div>
+        <div class="p-title">4K Wallpaper HD & Live Wallpaper</div>
+        <div class="p-desc">Wallpaper browsing and live customization app with Material Design UI, optimized for image quality and smooth performance.</div>
+        <div class="p-tags"><span class="p-tag">MVVM</span><span class="p-tag">Material Design</span></div>
+        <span class="p-link">View on Play Store →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Toolbox</div>
+      <h2>Skills & Stack</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <h3>Languages & Architecture</h3>
+        <div class="skill-pills">
+          <span class="skill-pill">Kotlin</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">MVVM</span>
+          <span class="skill-pill">MVI</span>
+          <span class="skill-pill">Clean Architecture</span>
+          <span class="skill-pill">Repository Pattern</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Media & Graphics</h3>
+        <div class="skill-pills">
+          <span class="skill-pill">Media3 / ExoPlayer</span>
+          <span class="skill-pill">FFmpeg</span>
+          <span class="skill-pill">MPV</span>
+          <span class="skill-pill">ML Kit</span>
+          <span class="skill-pill">OpenCV</span>
+          <span class="skill-pill">iText</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>UI & Navigation</h3>
+        <div class="skill-pills">
+          <span class="skill-pill">Jetpack Compose</span>
+          <span class="skill-pill">XML</span>
+          <span class="skill-pill">Material Design</span>
+          <span class="skill-pill">Jetpack Navigation</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h3>Infra & Tools</h3>
+        <div class="skill-pills">
+          <span class="skill-pill">Hilt</span>
+          <span class="skill-pill">Dagger 2</span>
+          <span class="skill-pill">Coroutines</span>
+          <span class="skill-pill">Firebase</span>
+          <span class="skill-pill">AdMob</span>
+          <span class="skill-pill">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Kind Words</div>
+      <h2>Testimonials</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="quote-mark">"</div>
+        <p class="testi-text">Waseem owns problems end to end. He took our video player from constant playback bugs to something we're genuinely proud of, and never needed hand-holding on architecture decisions.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">PM</div>
+          <div><div class="testi-name">Product Manager</div><div class="testi-role">Ainsoft Tech</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="quote-mark">"</div>
+        <p class="testi-text">What stood out was how fast he ramped up on OCR and document scanning. Within weeks he was making calls on ML Kit tuning that saved the rest of us real time.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">EL</div>
+          <div><div class="testi-name">Engineering Lead</div><div class="testi-role">Terafort</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="quote-mark">"</div>
+        <p class="testi-text">Reliable, methodical, and honest about tradeoffs. Waseem's MVVM setups are the kind other engineers can actually build on top of without asking a hundred questions.</p>
+        <div class="testi-person">
+          <div class="testi-avatar">SD</div>
+          <div><div class="testi-name">Senior Developer</div><div class="testi-role">Ainsoft Tech</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:36px;">
+      <div class="eyebrow">Let's Talk</div>
+      <h2>You can contact me through this</h2>
+    </div>
+    <div class="contact-side contact-side-solo">
+      <a class="contact-item" href="mailto:wa032220@gmail.com">
+        <div class="contact-ico">@</div>
+        <div><div class="contact-label">Email</div><div class="contact-value">wa032220@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="tel:+923081989341">
+        <div class="contact-ico">#</div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+92 308 1989341</div></div>
+      </a>
+      <a class="contact-item" href="https://linkedin.com/in/waseem-akram-95a202215" target="_blank" rel="noopener">
+        <div class="contact-ico">in</div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/waseem-akram-95a202215</div></div>
+      </a>
+      <div class="contact-item">
+        <div class="contact-ico">◎</div>
+        <div><div class="contact-label">Location</div><div class="contact-value">Faisalabad, Punjab, Pakistan</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Waseem Akram · Built with Kotlin in mind</div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Hero phone carousel rotation
+  const phones = document.querySelectorAll('.phone');
+  const positions = ['pos-0','pos-1','pos-2'];
+  let rotation = 0;
+  function cyclePhones(){
+    rotation = (rotation + 1) % 3;
+    phones.forEach((phone) => {
+      const idx = parseInt(phone.dataset.idx, 10);
+      const newPos = positions[(idx + rotation) % 3];
+      phone.classList.remove('pos-0','pos-1','pos-2');
+      phone.classList.add(newPos);
+    });
+  }
+  setInterval(cyclePhones, 3200);
+
+</script>
+
+</body>
+</html>
