@@ -126,7 +126,7 @@
   nav{
     max-width:var(--maxw);
     margin:0 auto;
-    padding:18px 32px;
+    padding:14px 32px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -140,8 +140,9 @@
     gap:10px;
   }
   .logo-mark{
-    width:34px; height:34px;
-    border-radius:9px;
+    width:38px; height:38px;
+    border-radius:10px;
+    overflow:hidden;
     background:linear-gradient(135deg, var(--accent), var(--accent-2));
     display:flex; align-items:center; justify-content:center;
     font-family:'JetBrains Mono', monospace;
@@ -149,7 +150,9 @@
     color:#0F1016;
     font-weight:700;
     transition:transform .4s cubic-bezier(.2,.8,.2,1);
+    flex-shrink:0;
   }
+  .logo-mark img{ width:100%; height:100%; object-fit:cover; }
   .logo:hover .logo-mark{ transform:rotate(-10deg) scale(1.08); }
   .nav-links{
     display:flex;
@@ -196,13 +199,30 @@
     gap:40px;
     align-items:center;
   }
+  .hero-avatar{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:22px;
+    animation:fadeUp .6s ease both;
+  }
+  .hero-avatar-pic{
+    width:52px; height:52px;
+    border-radius:50%;
+    overflow:hidden;
+    border:2px solid var(--border-bright);
+    box-shadow:0 0 0 4px rgba(139,92,246,0.08);
+    flex-shrink:0;
+  }
+  .hero-avatar-pic img{ width:100%; height:100%; object-fit:cover; }
+  .hero-avatar-text{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint); }
+  .hero-avatar-text .dot{ color:#4ADE80; }
   .hero h1{
     font-size:56px;
     line-height:1.06;
     margin-bottom:24px;
     animation:fadeUp .7s cubic-bezier(.2,.7,.2,1) .1s both;
   }
-  .hero .eyebrow{ animation:fadeUp .6s ease both; }
   .hero h1 .accent{
     background:linear-gradient(100deg, var(--accent-bright), var(--accent-2));
     -webkit-background-clip:text;
@@ -370,9 +390,39 @@
   /* ---------- About ---------- */
   .about-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:64px;
+    grid-template-columns:240px 1fr 1fr;
+    gap:48px;
     align-items:start;
+  }
+  .about-portrait{ animation:floatY 5s ease-in-out infinite; }
+  .portrait-frame{
+    position:relative;
+    width:100%;
+    aspect-ratio:4/5;
+    border-radius:var(--radius);
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:linear-gradient(160deg, rgba(139,92,246,0.14), rgba(248,137,9,0.06));
+    padding:6px;
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .portrait-frame:hover{ border-color:var(--border-bright); transform:translateY(-4px); }
+  .portrait-frame img{
+    width:100%; height:100%;
+    object-fit:cover;
+    border-radius:calc(var(--radius) - 6px);
+  }
+  .portrait-badge{
+    position:absolute; bottom:16px; left:16px; right:16px;
+    background:rgba(15,16,22,0.72);
+    backdrop-filter:blur(10px);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:9px 12px;
+    display:flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--text-muted);
   }
   .about-bio p{ color:var(--text-muted); margin-bottom:18px; font-size:15.5px; }
   .about-bio .highlight{ color:var(--text); font-weight:500; }
@@ -549,6 +599,21 @@
   .testi-role{ font-size:12.5px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; }
 
   /* ---------- Contact ---------- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:40px;
+    align-items:center;
+  }
+  .contact-portrait{
+    width:120px; height:120px;
+    border-radius:50%;
+    overflow:hidden;
+    border:2px solid var(--border-bright);
+    box-shadow:0 0 0 6px rgba(139,92,246,0.06);
+    flex-shrink:0;
+  }
+  .contact-portrait img{ width:100%; height:100%; object-fit:cover; }
   .contact-side{ display:flex; flex-direction:column; gap:28px; }
   .contact-side-solo{
     max-width:420px;
@@ -589,7 +654,9 @@
   @media (max-width: 900px){
     .hero{ grid-template-columns:1fr; padding-top:150px; }
     .hero h1{ font-size:42px; }
-    .about-grid, .contact-grid{ grid-template-columns:1fr; gap:44px; }
+    .about-grid{ grid-template-columns:1fr; gap:36px; }
+    .about-portrait{ max-width:220px; }
+    .contact-grid{ grid-template-columns:1fr; text-align:left; }
     .skills-grid{ grid-template-columns:1fr; }
     .testi-grid{ grid-template-columns:1fr; }
     .phone-stage{ height:420px; }
@@ -635,7 +702,7 @@
 
 <header>
   <nav class="wrap">
-    <div class="logo"><div class="logo-mark">WA</div> Waseem Akram</div>
+    <div class="logo"><div class="logo-mark"><img src="profile_pic.jpeg" alt="Waseem Akram"></div> Waseem Akram</div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -650,6 +717,10 @@
 <!-- HERO -->
 <section class="hero wrap" id="hero">
   <div>
+    <div class="hero-avatar">
+      <div class="hero-avatar-pic"><img src="profile_pic.jpeg" alt="Waseem Akram"></div>
+      <div class="hero-avatar-text"><span class="dot">●</span> Available for new projects</div>
+    </div>
     <div class="eyebrow">Senior Android Developer · Kotlin / Compose</div>
     <h1>Apps that play smoother, scan sharper, and <span class="accent">ship on time.</span></h1>
     <p class="lead">I build production Android apps end to end — from architecture to Play Store — specializing in media playback, document scanning, and clean MVVM foundations that scale.</p>
@@ -697,7 +768,14 @@
 <section id="about">
   <div class="wrap">
     <div class="about-grid">
-      <div class="reveal-left">
+      <div class="about-portrait reveal-left">
+        <div class="portrait-frame">
+          <img src="profile_pic.jpeg" alt="Waseem Akram — Senior Android Developer">
+          <div class="portrait-badge"><span class="status-dot"></span>Faisalabad, PK</div>
+        </div>
+      </div>
+
+      <div class="reveal-left" style="transition-delay:.08s">
         <div class="eyebrow">About Me</div>
         <h2 style="font-size:32px; margin-bottom:24px;">Three years deep in Android, one app at a time.</h2>
         <div class="about-bio">
@@ -752,7 +830,7 @@
     <div class="project-scroll">
 
       <a class="project-card reveal-scale" style="transition-delay:0.00s" href="https://play.google.com/store/apps/details?id=pdfscanner.camscanner.documentscanner.scannerapp" target="_blank" rel="noopener">
-        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#8B5CF6,#5B3FD1);">PDF</div></div>
+        <div class="p-frame"><img src="gen_pdf_scanner.png" alt="PDF Scanner: Scan to PDF & OCR screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#8B5CF6,#5B3FD1);">PDF</div></div>
         <div class="p-company">Ainsoft Tech</div>
         <div class="p-title">PDF Scanner: Scan to PDF & OCR</div>
         <div class="p-desc">Document scanner with edge detection, cropping, and OCR text extraction, backed by iText for reliable PDF creation and merging.</div>
@@ -761,7 +839,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.08s" href="https://play.google.com/store/apps/details?id=videoplayer.movies.videoeditor.hd" target="_blank" rel="noopener">
-        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#F88909,#D96A00);">HD</div></div>
+        <div class="p-frame"><img src="hd_video_player.png" alt="HD Video Player — All Format screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#F88909,#D96A00);">HD</div></div>
         <div class="p-company">Ainsoft Tech</div>
         <div class="p-title">HD Video Player — All Format</div>
         <div class="p-desc">High-performance player on FFmpeg and MPV native libraries, with gesture controls, lock-screen playback, and a private folder for locked media.</div>
@@ -770,7 +848,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.16s" href="https://play.google.com/store/apps/details?id=com.videoeditor.videomakerpro.ai" target="_blank" rel="noopener">
-        <div class="p-frame"><div class="p-icon" style="background:linear-gradient(135deg,#8B5CF6,#F88909);">VC</div></div>
+        <div class="p-frame"><img src="vi_cut_editor.png" alt="ViCut Video Editor screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#8B5CF6,#F88909);">VC</div></div>
         <div class="p-company">Ainsoft Tech</div>
         <div class="p-title">ViCut Video Editor</div>
         <div class="p-desc">Video editing app built on Media3 and ExoPlayer frameworks, delivering advanced trimming, playback, and export functionality.</div>
@@ -779,7 +857,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.24s" href="https://play.google.com/store/apps/details?id=com.xilli.qrscanner.app" target="_blank" rel="noopener">
-        <div class="p-frame"><img src="Go_qr.png" alt="GoQR Code Scanner screenshot" loading="lazy"><div class="p-icon-badge" style="background:linear-gradient(135deg,#4ADE80,#16A34A);">QR</div></div>
+        <div class="p-frame"><img src="Go_qr.png" alt="GoQR Code Scanner screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#4ADE80,#16A34A);">QR</div></div>
         <div class="p-company">Terafort</div>
         <div class="p-title">GoQR Code Scanner & Creator</div>
         <div class="p-desc">Clean, scalable QR and barcode scanner built with MVVM architecture and Jetpack Navigation for smooth screen transitions.</div>
@@ -788,7 +866,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.32s" href="https://play.google.com/store/apps/details?id=com.camscanner.pdfscanner.pdfconverter.imagetopdf.pdfeditor.pdfreader" target="_blank" rel="noopener">
-        <div class="p-frame"><img src="pdf_scanner.png" alt="PDF Scanner & PDF Editor App screenshot" loading="lazy"><div class="p-icon-badge" style="background:linear-gradient(135deg,#38BDF8,#0EA5E9);">PDF</div></div>
+        <div class="p-frame"><img src="pdf_scanner.png" alt="PDF Scanner & PDF Editor App screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#38BDF8,#0EA5E9);">PDF</div></div>
         <div class="p-company">Terafort</div>
         <div class="p-title">PDF Scanner & PDF Editor App</div>
         <div class="p-desc">Second scanning app in the lineup — image-to-PDF conversion, cropping, and multi-page document creation with an intuitive Material UI.</div>
@@ -797,7 +875,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.40s" href="https://play.google.com/store/apps/details?id=com.hd.video.player.allformats.mediaplayer" target="_blank" rel="noopener">
-        <div class="p-frame"><img src="zm_player.png" alt="ZM Player screenshot" loading="lazy"><div class="p-icon-badge" style="background:linear-gradient(135deg,#EC4899,#BE185D);">ZM</div></div>
+        <div class="p-frame"><img src="zm_player.png" alt="ZM Player screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#EC4899,#BE185D);">ZM</div></div>
         <div class="p-company">Terafort</div>
         <div class="p-title">ZM Player</div>
         <div class="p-desc">All-format HD video player with a built-in downloader, music player, private folder lock, and video cutter — organized codebase with custom themes and playback controls.</div>
@@ -806,7 +884,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.48s" href="https://play.google.com/store/apps/details?id=com.xenstudio.waterfallphoto.collagesmaker" target="_blank" rel="noopener">
-        <div class="p-frame"><img src="nature_photo_frame.png" alt="Nature Photo Frames screenshot" loading="lazy"><div class="p-icon-badge" style="background:linear-gradient(135deg,#22D3EE,#0891B2);">WF</div></div>
+        <div class="p-frame"><img src="nature_photo_frame.png" alt="Nature Photo Frames screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#22D3EE,#0891B2);">WF</div></div>
         <div class="p-company">Terafort</div>
         <div class="p-title">Nature / Waterfall Photo Frames</div>
         <div class="p-desc">Photo collage app translating UI/UX concepts into interactive features, using Coroutines and Dagger 2 for a modular, responsive codebase.</div>
@@ -815,7 +893,7 @@
       </a>
 
       <a class="project-card reveal-scale" style="transition-delay:0.56s" href="https://play.google.com/store/apps/details?id=com.xilli.hd.android.wallpapersmaker" target="_blank" rel="noopener">
-        <div class="p-frame"><img src="4k_wallaper.webp" alt="4K Wallpaper HD & Live Wallpaper screenshot" loading="lazy"><div class="p-icon-badge" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">4K</div></div>
+        <div class="p-frame"><img src="4k_wallaper.webp" alt="4K Wallpaper HD & Live Wallpaper screenshot"><div class="p-icon-badge" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">4K</div></div>
         <div class="p-company">Terafort</div>
         <div class="p-title">4K Wallpaper HD & Live Wallpaper</div>
         <div class="p-desc">Wallpaper browsing and live customization app with Material Design UI, optimized for image quality and smooth performance.</div>
@@ -924,22 +1002,25 @@
       <div class="eyebrow">Let's Talk</div>
       <h2>You can contact me through this</h2>
     </div>
-    <div class="contact-side contact-side-solo reveal-scale">
-      <a class="contact-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=wa032220@gmail.com" target="_blank" rel="noopener">
-        <div class="contact-ico">@</div>
-        <div><div class="contact-label">Email</div><div class="contact-value">wa032220@gmail.com</div></div>
-      </a>
-      <a class="contact-item" href="tel:+923081989341">
-        <div class="contact-ico">#</div>
-        <div><div class="contact-label">Phone</div><div class="contact-value">+92 308 1989341</div></div>
-      </a>
-      <a class="contact-item" href="https://linkedin.com/in/waseem-akram-95a202215" target="_blank" rel="noopener">
-        <div class="contact-ico">in</div>
-        <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/waseem-akram-95a202215</div></div>
-      </a>
-      <div class="contact-item">
-        <div class="contact-ico">◎</div>
-        <div><div class="contact-label">Location</div><div class="contact-value">Faisalabad, Punjab, Pakistan</div></div>
+    <div class="contact-grid">
+      <div class="contact-portrait reveal-scale"><img src="profile_pic.jpeg" alt="Waseem Akram"></div>
+      <div class="contact-side contact-side-solo reveal-scale">
+        <a class="contact-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=wa032220@gmail.com" target="_blank" rel="noopener">
+          <div class="contact-ico">@</div>
+          <div><div class="contact-label">Email</div><div class="contact-value">wa032220@gmail.com</div></div>
+        </a>
+        <a class="contact-item" href="tel:+923081989341">
+          <div class="contact-ico">#</div>
+          <div><div class="contact-label">Phone</div><div class="contact-value">+92 308 1989341</div></div>
+        </a>
+        <a class="contact-item" href="https://linkedin.com/in/waseem-akram-95a202215" target="_blank" rel="noopener">
+          <div class="contact-ico">in</div>
+          <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/waseem-akram-95a202215</div></div>
+        </a>
+        <div class="contact-item">
+          <div class="contact-ico">◎</div>
+          <div><div class="contact-label">Location</div><div class="contact-value">Faisalabad, Punjab, Pakistan</div></div>
+        </div>
       </div>
     </div>
   </div>
