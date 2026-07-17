@@ -202,21 +202,29 @@
   .hero-avatar{
     display:inline-flex;
     align-items:center;
-    gap:12px;
-    margin-bottom:22px;
+    gap:14px;
+    margin-bottom:26px;
+    padding:8px 18px 8px 8px;
+    border-radius:100px;
+    border:1px solid var(--border);
+    background:rgba(139,92,246,0.05);
     animation:fadeUp .6s ease both;
+    transition:border-color .25s ease, background .25s ease;
   }
+  .hero-avatar:hover{ border-color:var(--border-bright); background:rgba(139,92,246,0.1); }
   .hero-avatar-pic{
     width:52px; height:52px;
     border-radius:50%;
     overflow:hidden;
     border:2px solid var(--border-bright);
-    box-shadow:0 0 0 4px rgba(139,92,246,0.08);
+    box-shadow:0 0 0 4px rgba(139,92,246,0.1);
     flex-shrink:0;
   }
   .hero-avatar-pic img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
-  .hero-avatar-text{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--text-faint); }
-  .hero-avatar-text .dot{ color:#4ADE80; }
+  .hero-avatar-text{ display:flex; flex-direction:column; gap:3px; }
+  .hero-avatar-role{ font-family:'Space Grotesk', sans-serif; font-size:14px; font-weight:600; color:var(--text); }
+  .hero-avatar-status{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--text-faint); display:flex; align-items:center; gap:6px; }
+  .hero-avatar-status .dot{ color:#4ADE80; }
   .hero h1{
     font-size:56px;
     line-height:1.06;
@@ -703,7 +711,7 @@
 
 <header>
   <nav class="wrap">
-    <div class="logo"><div class="logo-mark"><img src="profile_pic.jpeg" alt="Waseem Akram"></div> Waseem Akram</div>
+    <div class="logo"><div class="logo-mark"><svg viewBox="0 0 24 24" width="20" height="20" fill="#0F1016"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-1.43-.65-3.03-1.01-4.47-1.01s-3.04.36-4.47 1.01L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg></div> Waseem Akram</div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -720,7 +728,10 @@
   <div>
     <div class="hero-avatar">
       <div class="hero-avatar-pic"><img src="profile_pic.jpeg" alt="Waseem Akram"></div>
-      <div class="hero-avatar-text"><span class="dot">●</span> Available for new projects</div>
+      <div class="hero-avatar-text">
+        <span class="hero-avatar-role">Android Developer</span>
+        <span class="hero-avatar-status"><span class="dot">●</span> Open to full-time opportunities</span>
+      </div>
     </div>
     <div class="eyebrow">Senior Android Developer · Kotlin / Compose</div>
     <h1>Apps that play smoother, scan sharper, and <span class="accent">ship on time.</span></h1>
